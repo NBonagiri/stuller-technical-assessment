@@ -1,0 +1,191 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Calculator.App.ViewModels"
+        x:Class="Calculator.App.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="Calculator"
+        Width="320"
+        Height="510"
+        MinWidth="320"
+        MinHeight="510"
+        CanResize="False"
+        Background="#1C1C1C">
+
+    <Window.Styles>
+        <!-- Base button style -->
+        <Style Selector="Button.calc-btn">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="1"/>
+            <Setter Property="CornerRadius" Value="2"/>
+            <Setter Property="Background" Value="#323232"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.calc-btn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#3C3C3C"/>
+        </Style>
+        <Style Selector="Button.calc-btn:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#484848"/>
+        </Style>
+
+        <!-- Operator buttons (lighter) -->
+        <Style Selector="Button.op-btn">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Background" Value="#3B3B3B"/>
+        </Style>
+        <Style Selector="Button.op-btn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#505050"/>
+        </Style>
+
+        <!-- Equals button (accent) -->
+        <Style Selector="Button.eq-btn">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Background" Value="#4F4FC8"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style Selector="Button.eq-btn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#6060DD"/>
+        </Style>
+        <Style Selector="Button.eq-btn:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#3A3AB0"/>
+        </Style>
+
+        <!-- Memory row buttons (smaller text, dimmer) -->
+        <Style Selector="Button.mem-btn">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#BBBBBB"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+        <Style Selector="Button.mem-btn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#2A2A2A"/>
+        </Style>
+        <Style Selector="Button.mem-btn:disabled /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.35"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*">
+
+        <!-- ── Header ── -->
+        <TextBlock Grid.Row="0"
+                   Text="Standard"
+                   Foreground="White"
+                   FontSize="16"
+                   FontWeight="SemiBold"
+                   Margin="14,10,0,6"/>
+
+        <!-- ── Display ── -->
+        <Border Grid.Row="1" Padding="12,4,12,8">
+            <StackPanel>
+                <!-- Expression / history line -->
+                <TextBlock Text="{Binding ExpressionText}"
+                           HorizontalAlignment="Right"
+                           Foreground="#888888"
+                           FontSize="13"
+                           Height="18"
+                           TextTrimming="CharacterEllipsis"/>
+                <!-- Main display -->
+                <TextBlock Text="{Binding DisplayText}"
+                           HorizontalAlignment="Right"
+                           Foreground="White"
+                           FontSize="46"
+                           FontWeight="Light"
+                           TextTrimming="CharacterEllipsis"
+                           Margin="0,2,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- ── Memory row ── -->
+        <Grid Grid.Row="2" ColumnDefinitions="*,*,*,*,*,*" Height="36" Margin="4,0">
+            <Button Grid.Column="0" Content="MC" Classes="calc-btn mem-btn"
+                    Command="{Binding PressMemoryClearCommand}"
+                    IsEnabled="{Binding MemoryHasValue}"/>
+            <Button Grid.Column="1" Content="MR" Classes="calc-btn mem-btn"
+                    Command="{Binding PressMemoryRecallCommand}"
+                    IsEnabled="{Binding MemoryHasValue}"/>
+            <Button Grid.Column="2" Content="M+" Classes="calc-btn mem-btn"
+                    Command="{Binding PressMemoryAddCommand}"/>
+            <Button Grid.Column="3" Content="M-" Classes="calc-btn mem-btn"
+                    Command="{Binding PressMemorySubtractCommand}"/>
+            <Button Grid.Column="4" Content="MS" Classes="calc-btn mem-btn"
+                    Command="{Binding PressMemoryStoreCommand}"/>
+            <Button Grid.Column="5" Content="M▾" Classes="calc-btn mem-btn"
+                    IsEnabled="{Binding MemoryHasValue}"/>
+        </Grid>
+
+        <!-- ── Button grid ── -->
+        <Grid Grid.Row="3" Margin="4,2,4,4"
+              RowDefinitions="*,*,*,*,*,*"
+              ColumnDefinitions="*,*,*,*">
+
+            <!-- Row 0: %, CE, C, ⌫ -->
+            <Button Grid.Row="0" Grid.Column="0" Content="%" Classes="calc-btn op-btn"
+                    Command="{Binding PressUnaryCommand}" CommandParameter="percent"/>
+            <Button Grid.Row="0" Grid.Column="1" Content="CE" Classes="calc-btn op-btn"
+                    Command="{Binding PressClearEntryCommand}"/>
+            <Button Grid.Row="0" Grid.Column="2" Content="C" Classes="calc-btn op-btn"
+                    Command="{Binding PressClearCommand}"/>
+            <Button Grid.Row="0" Grid.Column="3" Content="⌫" Classes="calc-btn op-btn"
+                    Command="{Binding PressBackspaceCommand}"/>
+
+            <!-- Row 1: 1/x, x², √x, ÷ -->
+            <Button Grid.Row="1" Grid.Column="0" Content="¹⁄ₓ" Classes="calc-btn op-btn"
+                    Command="{Binding PressUnaryCommand}" CommandParameter="reciprocal"/>
+            <Button Grid.Row="1" Grid.Column="1" Content="x²" Classes="calc-btn op-btn"
+                    Command="{Binding PressUnaryCommand}" CommandParameter="square"/>
+            <Button Grid.Row="1" Grid.Column="2" Content="²√x" Classes="calc-btn op-btn"
+                    Command="{Binding PressUnaryCommand}" CommandParameter="sqrt"/>
+            <Button Grid.Row="1" Grid.Column="3" Content="÷" Classes="calc-btn op-btn"
+                    Command="{Binding PressOperatorCommand}" CommandParameter="/"/>
+
+            <!-- Row 2: 7, 8, 9, × -->
+            <Button Grid.Row="2" Grid.Column="0" Content="7" Classes="calc-btn"
+                    Command="{Binding PressDigitCommand}" CommandParameter="7"/>
+            <Button Grid.Row="2" Grid.Column="1" Content="8" Classes="calc-btn"
+                    Command="{Binding PressDigitCommand}" CommandParameter="8"/>
+            <Button Grid.Row="2" Grid.Column="2" Content="9" Classes="calc-btn"
+                    Command="{Binding PressDigitCommand}" CommandParameter="9"/>
+            <Button Grid.Row="2" Grid.Column="3" Content="×" Classes="calc-btn op-btn"
+                    Command="{Binding PressOperatorCommand}" CommandParameter="*"/>
+
+            <!-- Row 3: 4, 5, 6, - -->
+            <Button Grid.Row="3" Grid.Column="0" Content="4" Classes="calc-btn"
+                    Command="{Binding PressDigitCommand}" CommandParameter="4"/>
+            <Button Grid.Row="3" Grid.Column="1" Content="5" Classes="calc-btn"
+                    Command="{Binding PressDigitCommand}" CommandParameter="5"/>
+            <Button Grid.Row="3" Grid.Column="2" Content="6" Classes="calc-btn"
+                    Command="{Binding PressDigitCommand}" CommandParameter="6"/>
+            <Button Grid.Row="3" Grid.Column="3" Content="−" Classes="calc-btn op-btn"
+                    Command="{Binding PressOperatorCommand}" CommandParameter="-"/>
+
+            <!-- Row 4: 1, 2, 3, + -->
+            <Button Grid.Row="4" Grid.Column="0" Content="1" Classes="calc-btn"
+                    Command="{Binding PressDigitCommand}" CommandParameter="1"/>
+            <Button Grid.Row="4" Grid.Column="1" Content="2" Classes="calc-btn"
+                    Command="{Binding PressDigitCommand}" CommandParameter="2"/>
+            <Button Grid.Row="4" Grid.Column="2" Content="3" Classes="calc-btn"
+                    Command="{Binding PressDigitCommand}" CommandParameter="3"/>
+            <Button Grid.Row="4" Grid.Column="3" Content="+" Classes="calc-btn op-btn"
+                    Command="{Binding PressOperatorCommand}" CommandParameter="+"/>
+
+            <!-- Row 5: +/-, 0, ., = -->
+            <Button Grid.Row="5" Grid.Column="0" Content="+/-" Classes="calc-btn"
+                    Command="{Binding PressUnaryCommand}" CommandParameter="negate"/>
+            <Button Grid.Row="5" Grid.Column="1" Content="0" Classes="calc-btn"
+                    Command="{Binding PressDigitCommand}" CommandParameter="0"/>
+            <Button Grid.Row="5" Grid.Column="2" Content="." Classes="calc-btn"
+                    Command="{Binding PressDecimalCommand}"/>
+            <Button Grid.Row="5" Grid.Column="3" Content="=" Classes="calc-btn eq-btn"
+                    Command="{Binding PressEqualsCommand}"/>
+        </Grid>
+
+    </Grid>
+</Window>

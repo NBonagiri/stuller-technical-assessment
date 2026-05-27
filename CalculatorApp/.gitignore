@@ -1,0 +1,34 @@
+## .NET / C# gitignore
+
+# Build outputs
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+*.userosspecific
+
+# Visual Studio files
+.vs/
+*.sln.docstates
+
+# Rider / JetBrains
+.idea/
+
+# Test results
+TestResults/
+coverage/
+
+# NuGet
+*.nupkg
+.nuget/
+packages/
+project.lock.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
