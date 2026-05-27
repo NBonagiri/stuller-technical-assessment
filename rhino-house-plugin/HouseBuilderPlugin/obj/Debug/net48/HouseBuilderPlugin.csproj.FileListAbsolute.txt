@@ -1,0 +1,8 @@
+C:\Users\bhava\OneDrive\Desktop\stuller-technical-assessment\rhino-house-plugin\HouseBuilderPlugin\bin\Debug\net48\HouseBuilderPlugin.dll
+C:\Users\bhava\OneDrive\Desktop\stuller-technical-assessment\rhino-house-plugin\HouseBuilderPlugin\bin\Debug\net48\HouseBuilderPlugin.pdb
+C:\Users\bhava\OneDrive\Desktop\stuller-technical-assessment\rhino-house-plugin\HouseBuilderPlugin\obj\Debug\net48\HouseBuilderPlugin.csproj.AssemblyReference.cache
+C:\Users\bhava\OneDrive\Desktop\stuller-technical-assessment\rhino-house-plugin\HouseBuilderPlugin\obj\Debug\net48\HouseBuilderPlugin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bhava\OneDrive\Desktop\stuller-technical-assessment\rhino-house-plugin\HouseBuilderPlugin\obj\Debug\net48\HouseBuilderPlugin.csproj.CoreCompileInputs.cache
+C:\Users\bhava\OneDrive\Desktop\stuller-technical-assessment\rhino-house-plugin\HouseBuilderPlugin\obj\Debug\net48\HouseBuilderPlugin.sourcelink.json
+C:\Users\bhava\OneDrive\Desktop\stuller-technical-assessment\rhino-house-plugin\HouseBuilderPlugin\obj\Debug\net48\HouseBuilderPlugin.dll
+C:\Users\bhava\OneDrive\Desktop\stuller-technical-assessment\rhino-house-plugin\HouseBuilderPlugin\obj\Debug\net48\HouseBuilderPlugin.pdb

@@ -1,0 +1,8 @@
+is_global = true
+build_property.RootNamespace = HouseBuilderPlugin
+build_property.ProjectDir = C:\Users\bhava\OneDrive\Desktop\stuller-technical-assessment\rhino-house-plugin\HouseBuilderPlugin\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 
