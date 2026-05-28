@@ -1,71 +1,17 @@
 # \# Stuller Technical Assessment
 
-# 
-
-# \## Technologies Used
-
-# \- C#
-
-# \- .NET MAUI
-
-# \- CommunityToolkit.Mvvm
-
-# \- RhinoCommon
-
-# 
 
 # \## Projects
 
-# 1\. Calculator Application
+1\. Calculator Application
 
-# 2\. Rhino House Plugin
+2\. Rhino House Plugin
 
-# 
-
-# \## Features
-
-# \- MVVM architecture
-
-# \- Cross-platform UI using MAUI
-
-# \- Rhino plugin geometry generation
-
-# \- User input for house size and location
-
-# 
-
-# \## Rhino Plugin Features
-
-# The Rhino plugin creates:
-
-# \- House body
-
-# \- Door
-
-# \- Chimney
-
-# \- Roof mesh
-
-# 
-
-# The command:
-
-# CreateHouse
-
-# 
-
-# prompts the user for:
-
-# \- Base point
-
-# \- House size
-
-# 
 
 # \## Setup
 
 # 
-# Calculator
+# 1. Calculator
 
 A simple calculator app built with C# and Avalonia UI. Tried to make it look and feel close to the standard Windows calculator.
 
@@ -107,17 +53,49 @@ dotnet test Calculator.Tests/Calculator.Tests.csproj
 - Left-to-right evaluation like the real Windows standard calculator (no operator precedence)
 - Avalonia was chosen over WPF mainly because it's cross-platform
 
-# \### Rhino Plugin
+# 2. Rhino House Plugin
 
-# 1\. Open Rhino 8
+A simple Rhino 8 plugin built with C# and RhinoCommon that creates a procedural house model inside Rhino based on user input. Built as part of the Stuller technical assessment.
 
-# 2\. Run LoadPlugin
+## What's in here
 
-# 3\. Select:
+- **HouseBuilderPlugin** – Rhino plugin project containing the command and geometry logic
+- **CreateHouse Command** – the main command used to generate the house
+- **Geometry Helpers** – helper methods used to build the house body, roof, door, and chimney
 
-# &#x20;  HouseBuilderPlugin.dll
+## Running it
 
-# 4\. Run:
+You'll need Rhino 8 and Visual Studio 2022 installed.
 
-# &#x20;  CreateHouse
+Build the project to generate the `HouseBuilderPlugin.dll`.
 
+Open Rhino 8
+
+Run 
+
+```
+LoadPlugin
+```
+
+Select:
+
+```
+  HouseBuilderPlugin.dll
+```
+
+Run:
+
+```
+  CreateHouse
+```
+
+prompts the user for:
+    Base point
+    House size
+
+## Notes
+
+- Built using RhinoCommon APIs for procedural geometry generation
+- Demonstrates custom Rhino command development
+- Uses user input (base point and size) to generate geometry dynamically
+- Focused on clean and simple procedural modeling logic
